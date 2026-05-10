@@ -2,7 +2,7 @@ FROM maven:4.0.0-rc-5-amazoncorretto-21-debian AS build
 WORKDIR /app
 COPY src /app/src
 COPY pom.xml /app
-RUN mvn package -Dnative
+RUN mvn package -Dnative -DskipTests
 
 FROM registry.access.redhat.com/ubi9/ubi-minimal:9.7
 WORKDIR /work/
