@@ -1,6 +1,6 @@
 FROM maven:4.0.0-rc-5-amazoncorretto-21-debian AS build
 WORKDIR /app
-COPY src /app/src
+COPY feedback-api/src /app/src
 COPY pom.xml /app
 RUN mvn clean install -DskipTests
 
