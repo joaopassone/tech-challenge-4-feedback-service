@@ -5,6 +5,6 @@ import io.quarkus.hibernate.orm.panache.PanacheRepository;
 import jakarta.enterprise.context.ApplicationScoped;
 
 @ApplicationScoped
-public interface FeedbackRepository extends PanacheRepository<Feedback> {
+public class FeedbackRepository implements PanacheRepository<Feedback> {
     
 }
