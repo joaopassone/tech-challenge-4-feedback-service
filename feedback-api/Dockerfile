@@ -5,7 +5,7 @@ COPY feedback-api/pom.xml /app/feedback-api
 COPY pom.xml /app
 COPY common/src /app/common/src
 COPY common/pom.xml /app/common/pom.xml
-RUN mvn clean install -DskipTests
+RUN mvn clean install -DskipTests -pl feedback-api -am
 
 FROM amazoncorretto:21.0.9-al2023-headless
 WORKDIR /app
