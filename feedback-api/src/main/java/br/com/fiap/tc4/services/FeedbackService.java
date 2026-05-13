@@ -24,7 +24,8 @@ public class FeedbackService {
         Feedback novoFeedback = new Feedback(feedback.descricao(), feedback.nota(), dataAtual);
         
         repository.persistAndFlush(novoFeedback);
-
+        System.out.println(novoFeedback.getId());
+        System.out.println("#######################");
         return novoFeedback.getId();
     }
 }
