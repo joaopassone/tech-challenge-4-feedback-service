@@ -22,6 +22,7 @@
     <modules>
         <module>common</module>
         <module>feedback-api</module>
+        <module>email-function</module>
     </modules>
 
     <dependencyManagement>

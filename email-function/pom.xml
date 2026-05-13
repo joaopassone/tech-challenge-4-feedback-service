@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <artifactId>feedback-api</artifactId>
+    <artifactId>email-function</artifactId>
+    <version>1.0.0-SNAPSHOT</version>
     <packaging>quarkus</packaging>
 
     <parent>
@@ -9,13 +10,13 @@
         <artifactId>feedback</artifactId>
         <version>1.0.0-SNAPSHOT</version>
     </parent>
-    
+
     <dependencyManagement>
         <dependencies>
             <dependency>
-                <groupId>io.quarkus.platform</groupId>
-                <artifactId>quarkus-google-cloud-services-bom</artifactId>
-                <version>3.35.2</version>
+                <groupId>${quarkus.platform.group-id}</groupId>
+                <artifactId>${quarkus.platform.artifact-id}</artifactId>
+                <version>${quarkus.platform.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
@@ -24,17 +25,31 @@
 
     <dependencies>
         <dependency>
-			<groupId>br.com.fiap.tc4</groupId>
-			<artifactId>common</artifactId>
-            <version>1.0.0-SNAPSHOT</version>
-		</dependency>
+            <groupId>com.resend</groupId>
+            <artifactId>resend-java</artifactId>
+            <version>LATEST</version>
+        </dependency>
         <dependency>
-            <groupId>io.quarkiverse.googlecloudservices</groupId>
-            <artifactId>quarkus-google-cloud-pubsub</artifactId>
+            <groupId>br.com.fiap.tc4</groupId>
+            <artifactId>common</artifactId>
+            <version>1.0.0-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>io.quarkus</groupId>
+            <artifactId>quarkus-funqy-google-cloud-functions</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.quarkus</groupId>
+            <artifactId>quarkus-arc</artifactId>
         </dependency>
         <dependency>
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-junit</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>io.quarkus</groupId>
+            <artifactId>quarkus-test-google-cloud-functions</artifactId>
             <scope>test</scope>
         </dependency>
         <dependency>
