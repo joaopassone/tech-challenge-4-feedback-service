@@ -5,24 +5,26 @@ import java.time.LocalDate;
 
 import br.com.fiap.tc4.dtos.FeedbackRequestDTO;
 import br.com.fiap.tc4.models.Feedback;
+import br.com.fiap.tc4.repositories.FeedbackRepository;
 import jakarta.enterprise.context.ApplicationScoped;
-import jakarta.persistence.EntityManager;
 import jakarta.transaction.Transactional;
 
 @ApplicationScoped
 public class FeedbackService {
 
-    EntityManager em;
+    FeedbackRepository repository;
 
-    public FeedbackService(EntityManager em) {
-        this.em = em;
+    public FeedbackService(FeedbackRepository repository) {
+        this.repository = repository;
     }
 
     @Transactional
-    public void enviarFeedback(FeedbackRequestDTO feedback) {
+    public int enviarFeedback(FeedbackRequestDTO feedback) {
         Date dataAtual = Date.valueOf(LocalDate.now());
         Feedback novoFeedback = new Feedback(feedback.descricao(), feedback.nota(), dataAtual);
         
-        em.persist(novoFeedback);
+        repository.persistAndFlush(novoFeedback);
+
+        return novoFeedback.getId();
     }
 }
