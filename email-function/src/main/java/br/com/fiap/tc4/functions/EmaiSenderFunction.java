@@ -2,11 +2,11 @@ package br.com.fiap.tc4.functions;
 
 import java.util.List;
 
+import br.com.fiap.tc4.dtos.PubsubMessage;
 import br.com.fiap.tc4.models.Feedback;
 import br.com.fiap.tc4.services.EmailService;
 import br.com.fiap.tc4.services.FeedbackService;
 import io.quarkus.funqy.Funq;
-import io.quarkus.funqy.gcp.functions.event.PubsubMessage;
 
 public class EmaiSenderFunction {
 
