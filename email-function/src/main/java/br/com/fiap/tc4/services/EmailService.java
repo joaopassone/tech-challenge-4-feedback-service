@@ -1,7 +1,6 @@
 package br.com.fiap.tc4.services;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -64,9 +63,9 @@ public class EmailService {
         Resend resend = new Resend(apiKey);
 
         List<String> urgencias = new ArrayList<>();
-        String feedbacksHtml = "";
+        StringBuilder feedbacksHtmlBuilder = new StringBuilder();
         
-        String dataAnterior = "";
+        final String[] dataAnterior = {""};
 
         feedbacks.forEach(feedback -> {
             String urgencia = definirUrgencia(feedback.getNota());
@@ -74,8 +73,9 @@ public class EmailService {
 
             String dataFormatada = DateFormatter.formatarData(feedback.getData().toString());
 
-            if (dataFormatada != dataAnterior) {
-                feedbacksHtml.concat("<h2>%s</h2>".formatted(dataFormatada));
+            if (!dataFormatada.equals(dataAnterior[0])) {
+                feedbacksHtmlBuilder.append("<h2>%s</h2>".formatted(dataFormatada));
+                dataAnterior[0] = dataFormatada;
             }
 
             String feedbackFormatado = """
@@ -88,8 +88,10 @@ public class EmailService {
                     <br>
                     """.formatted(urgencia, feedback.getNota(), feedback.getDescricao());
             
-            feedbacksHtml.concat(feedbackFormatado);
+            feedbacksHtmlBuilder.append(feedbackFormatado);
         });
+
+        String feedbacksHtml = feedbacksHtmlBuilder.toString();
 
         Map<String, Long> contagemUrgencias = urgencias.stream()
             .collect(Collectors.groupingBy(String::toUpperCase, Collectors.counting()));
@@ -99,7 +101,7 @@ public class EmailService {
         long qtdeFeedbacksUrgente = contagemUrgencias.getOrDefault("URGENTE", 0L);
 
         int totalFeedbacks = feedbacks.size();
-        double mediaFeedbacksDiaria = totalFeedbacks / 7;
+        double mediaFeedbacksDiaria = totalFeedbacks / 7.0;
 
         String cabecalhoHtml = """
                 <p><strong>Caros Administradores,</strong></p>
