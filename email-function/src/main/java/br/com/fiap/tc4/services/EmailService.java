@@ -3,6 +3,8 @@ package br.com.fiap.tc4.services;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 
@@ -89,11 +91,15 @@ public class EmailService {
             feedbacksHtml.concat(feedbackFormatado);
         });
 
+        Map<String, Long> contagemUrgencias = urgencias.stream()
+            .collect(Collectors.groupingBy(String::toUpperCase, Collectors.counting()));
+
+        long qtdeFeedbacksSemUrgencia = contagemUrgencias.getOrDefault("SEM URGÊNCIA", 0L);
+        long qtdeFeedbacksModerado = contagemUrgencias.getOrDefault("MODERADA", 0L);
+        long qtdeFeedbacksUrgente = contagemUrgencias.getOrDefault("URGENTE", 0L);
+
         int totalFeedbacks = feedbacks.size();
-        int qtdeFeedbacksSemUrgencia = Collections.frequency(urgencias, "SEM URGÊNCIA");
-        int qtdeFeedbacksModerado = Collections.frequency(urgencias, "MODERADA");
-        int qtdeFeedbacksUrgente = Collections.frequency(urgencias, "URGENTE");
-        Long mediaFeedbacksDiaria = Long.divideUnsigned(totalFeedbacks, 7);
+        double mediaFeedbacksDiaria = totalFeedbacks / 7;
 
         String cabecalhoHtml = """
                 <p><strong>Caros Administradores,</strong></p>
