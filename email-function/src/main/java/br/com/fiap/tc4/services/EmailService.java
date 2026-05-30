@@ -80,7 +80,7 @@ public class EmailService {
             String feedbackFormatado = """
                     <p>
                     <strong>Urgência:</strong> %s<br>
-                    <strong>Nota:</strong> %d
+                    <strong>Nota:</strong> %d<br>
                     <strong>Feedback:</strong><br>
                     %s
                     <br>
