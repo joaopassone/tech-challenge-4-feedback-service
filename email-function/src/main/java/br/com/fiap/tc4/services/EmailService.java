@@ -36,8 +36,7 @@ public class EmailService {
                     <strong>Data:</strong> %s<br>
                     <strong>Urgência:</strong> %s<br>
                     <strong>Nota:</strong> %d
-                </p>
-                <p><strong>FEEDBACK:</strong><br>
+                    <strong>Feedback:</strong><br>
                 %s
                 <br>
                 <p>Att.</p>
@@ -82,10 +81,10 @@ public class EmailService {
                     <p>
                     <strong>Urgência:</strong> %s<br>
                     <strong>Nota:</strong> %d
-                    </p>
-                    <p><strong>FEEDBACK:</strong><br>
+                    <strong>Feedback:</strong><br>
                     %s
                     <br>
+                    <p>----------</p>
                     """.formatted(urgencia, feedback.getNota(), feedback.getDescricao());
             
             feedbacksHtmlBuilder.append(feedbackFormatado);
