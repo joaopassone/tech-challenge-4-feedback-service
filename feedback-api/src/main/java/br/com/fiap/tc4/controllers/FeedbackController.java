@@ -28,7 +28,7 @@ public class FeedbackController {
     public Response criarPedido(FeedbackRequestDTO feedback) {
         int id = service.enviarFeedback(feedback);
 
-        if (feedback.nota() < 7) {
+        if (feedback.nota() <= 7) {
             pubSubService.publish("topico-feedback", String.valueOf(id));
         }
 
